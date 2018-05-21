@@ -1,0 +1,3 @@
+https://github.com/nashory/pggan-pytorch - MIT License
+	- network.py
+	- custom_layers.py
