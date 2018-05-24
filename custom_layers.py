@@ -12,6 +12,16 @@ from PIL import Image
 import copy
 from torch.nn.init import kaiming_normal, calculate_gain
 
+# c_out = c_in + mid_out
+class Dense(nn.Module):
+    def __init__(self, module):
+        super(Dense, self).__init__()
+        self.conv = module
+        
+    def forward(self, x):
+        y = self.conv(x)
+        return torch.cat([x, y], 1)
+    
 # same function as ConcatTable container in Torch7.
 class ConcatTable(nn.Module):
     def __init__(self, layer1, layer2):

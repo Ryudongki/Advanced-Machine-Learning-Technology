@@ -6,7 +6,8 @@ from torch.autograd import Variable
 from custom_layers import *
 
 # defined for code simplicity.
-def deconv(layers, c_in, c_out, k_size, stride=1, pad=0, leaky=True, bn=False, wn=False, pixel=False, only=False):
+def deconv(c_in, c_out, k_size, stride=1, pad=0, leaky=True, bn=False, wn=False, pixel=False, only=False):
+    layers = []
     if wn:  layers.append(equalized_conv2d(c_in, c_out, k_size, stride, pad))
     else:   layers.append(nn.Conv2d(c_in, c_out, k_size, stride, pad))
     if not only:
@@ -14,9 +15,10 @@ def deconv(layers, c_in, c_out, k_size, stride=1, pad=0, leaky=True, bn=False, w
         else:       layers.append(nn.ReLU())
         if bn:      layers.append(nn.BatchNorm2d(c_out))
         if pixel:   layers.append(pixelwise_norm_layer())
-    return layers
+    return nn.Sequential(*layers)
 
-def conv(layers, c_in, c_out, k_size, stride=1, pad=0, leaky=True, bn=False, wn=False, pixel=False, gdrop=True, only=False):
+def conv(c_in, c_out, k_size, stride=1, pad=0, leaky=True, bn=False, wn=False, pixel=False, gdrop=True, only=False):
+    layers = []
     if gdrop:       layers.append(generalized_drop_out(mode='prop', strength=0.0))
     if wn:          layers.append(equalized_conv2d(c_in, c_out, k_size, stride, pad, initializer='kaiming'))
     else:           layers.append(nn.Conv2d(c_in, c_out, k_size, stride, pad))
@@ -25,11 +27,12 @@ def conv(layers, c_in, c_out, k_size, stride=1, pad=0, leaky=True, bn=False, wn=
         else:       layers.append(nn.ReLU())
         if bn:      layers.append(nn.BatchNorm2d(c_out))
         if pixel:   layers.append(pixelwise_norm_layer())
-    return layers
+    return nn.Sequential(*layers)
 
-def linear(layers, c_in, c_out, sig=True, wn=False):
+def linear(c_in, c_out, sig=True, wn=False):
+    layers = []
     layers.append(Flatten())
     if wn:      layers.append(equalized_linear(c_in, c_out))
     else:       layers.append(Linear(c_in, c_out))
     if sig:     layers.append(nn.Sigmoid())
-    return layers
+    return nn.Sequential(*layers)
