@@ -1,3 +1,6 @@
 https://github.com/nashory/pggan-pytorch - MIT License
 	- network.py
 	- custom_layers.py
+https://github.com/thnkim/OpenFacePytorch
+	- openface pretrained model
+	- SpatialCrossMapLRN_temp.py
