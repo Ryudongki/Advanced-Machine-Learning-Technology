@@ -4,3 +4,5 @@ https://github.com/nashory/pggan-pytorch - MIT License
 https://github.com/thnkim/OpenFacePytorch
 	- openface pretrained model
 	- SpatialCrossMapLRN_temp.py
+https://github.com/soumith/ganhacks
+	- training skills

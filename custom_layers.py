@@ -159,7 +159,7 @@ class equalized_linear(nn.Module):
 
 # ref: https://github.com/github-pengge/PyTorch-progressive_growing_of_gans/blob/master/models/base_model.py
 class generalized_drop_out(nn.Module):
-    def __init__(self, mode='mul', strength=0.4, axes=(0,1), normalize=False):
+    def __init__(self, mode='mul', strength=0.5, axes=(0,1), normalize=False):
         super(generalized_drop_out, self).__init__()
         self.mode = mode.lower()
         assert self.mode in ['mul', 'drop', 'prop'], 'Invalid GDropLayer mode'%mode
