@@ -120,7 +120,7 @@ class equalized_conv2d(nn.Module):
         self.conv.weight.data.copy_(self.conv.weight.data/self.scale)
 
     def forward(self, x):
-        x = self.conv(x.mul(self.scale))
+        x = self.conv(x.mul(self.scale.cuda()))
         return x + self.bias.view(1,-1,1,1).expand_as(x)
         
  
@@ -136,7 +136,7 @@ class equalized_deconv2d(nn.Module):
         self.scale = (torch.mean(self.deconv.weight.data ** 2)) ** 0.5
         self.deconv.weight.data.copy_(self.deconv.weight.data/self.scale)
     def forward(self, x):
-        x = self.deconv(x.mul(self.scale))
+        x = self.deconv(x.mul(self.scale.cuda()))
         return x + self.bias.view(1,-1,1,1).expand_as(x)
 
 
@@ -153,7 +153,7 @@ class equalized_linear(nn.Module):
         self.linear.weight.data.copy_(self.linear.weight.data/self.scale)
         
     def forward(self, x):
-        x = self.linear(x.mul(self.scale))
+        x = self.linear(x.mul(self.scale.cuda()))
         return x + self.bias.view(1,-1).expand_as(x)
 
 
