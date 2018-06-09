@@ -6,3 +6,5 @@ https://github.com/thnkim/OpenFacePytorch
 	- SpatialCrossMapLRN_temp.py
 https://github.com/soumith/ganhacks
 	- training skills
+https://github.com/clcarwin/sphereface_pytorch
+	- net_sphere.py
