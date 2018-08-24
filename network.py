@@ -30,7 +30,7 @@ def conv(c_in, c_out, k_size, stride=1, pad=0, leaky=True, bn=False, wn=False, p
         if pixel:   layers.append(pixelwise_norm_layer())
     return nn.Sequential(*layers)
 
-def linear(c_in, c_out, sig=True, wn=False):
+def linear(c_in, c_out, sig=False, wn=False):
     layers = []
     layers.append(Flatten())
     if wn:      layers.append(equalized_linear(c_in, c_out))
